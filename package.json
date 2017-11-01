@@ -1,0 +1,19 @@
+{
+  "name": "mendixprojectcli",
+  "version": "1.0.0",
+  "description": "Command line interface to manage project deployment",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "mendix-cli": "./index.js"
+  },
+  "author": "Lennard Eijsackers",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "prompt": "^1.0.0"
+  }
+}
