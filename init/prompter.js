@@ -27,8 +27,9 @@ class Prompter {
      * @return {object}
      */
     async userInput() {
-        this.prompter.start();
-
+        console.log('We need some information ' +
+        'to setup a configuration file');
+        await this.prompter.start();
         let result = await this._get(this.schema).then((result) => {
             return result;
         }).catch((err) => console.log(err));

@@ -1,4 +1,5 @@
 const https = require('https');
+const settings = require(__base + 'settings');
 /**
  * Wrapper for the HTTPS library, provides utility
  * functions for request to the mendix API
@@ -15,12 +16,11 @@ class HTTPS {
      * @param {string} host - Host name
      * @param {string} path - Path on host
      * @param {string} HTTPmethod - HTTP method
-     * @param {function} onResult - callback function, with status code
-     *  and JSON response
+     * @param {function} onResult - callback function, with JSON response
      */
     request(host, path, HTTPmethod, onResult) {
-        let options = _options(host, path, HTTPmethod);
-        https.request(options, (result) => {
+        let options = this._options(host, path, HTTPmethod);
+        let request = https.request(options, (result) => {
             let output = '';
 
             result.on('data', (input) => {
@@ -29,10 +29,18 @@ class HTTPS {
 
             result.on('end', () => {
                 let obj = JSON.parse(output);
-                onResult(result.statusCode, obj);
+                if (result.statusCode !== 200) {
+                    err = {
+                        status: result.statusCode,
+                        message: obj,
+                    };
+                    throw err;
+                }
+                onResult(obj);
             });
-        })
-        .catch((err) => console.log(err));
+        });
+        request.on('error', (err) => console.log(err));
+        request.end();
     }
     /**
      * private function for returning an options object for requests
@@ -48,12 +56,12 @@ class HTTPS {
             method: HTTPmethod,
             headers: {
                 'Content-Type': 'application/json',
-                'Mendix-Username': 'TODO', // TODO
-                'Mendix-ApiKey': 'TODO', // TODO
+                'Mendix-Username': settings.email,
+                'Mendix-ApiKey': settings.apiKey,
             },
         };
         return options;
     }
 }
 
-module.exports = HTTPS;
+module.exports = new HTTPS();

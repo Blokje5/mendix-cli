@@ -7,7 +7,6 @@ const prompter = require(path.join(__dirname, 'prompter.js'));
  * Wraps the prompter and uses the user input to create a config.json file
  */
 async function init() {
-    console.log('We need some information to setup a configuration fileˇ');
     let result = await prompter.userInput()
                                  .catch((err) => console.log(err));
 
@@ -19,4 +18,3 @@ async function init() {
 
 module.exports = init;
 
-init();
