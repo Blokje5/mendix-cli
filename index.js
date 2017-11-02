@@ -28,4 +28,12 @@ commander
     deploy.retrieveEnvironments();
   });
 
+commander
+  .command('branches')
+  .description('retrieves all available branches')
+  .action(() => {
+    const team = require(__base + 'mendix-api/teamserver-api.js');
+    team.retrieveBranches();
+  });
+
 commander.parse(process.argv);
