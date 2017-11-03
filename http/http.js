@@ -1,5 +1,6 @@
 const https = require('https');
 const settings = require(__base + 'settings');
+const logger = require(__base + 'logger/logger.js');
 /**
  * Wrapper for the HTTPS library, provides utility
  * functions for request to the mendix API
@@ -39,7 +40,7 @@ class HTTPS {
                 onResult(obj);
             });
         });
-        request.on('error', (err) => console.log(err));
+        request.on('error', (err) => logger.error(err));
         request.end();
     }
     /**

@@ -15,7 +15,8 @@
   "dependencies": {
     "commander": "^2.11.0",
     "prettyjson": "^1.2.1",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "winston": "^3.0.0-rc1"
   },
   "devDependencies": {
     "eslint": "^4.10.0",

@@ -1,6 +1,6 @@
 const https = require(__base + 'http/http.js');
 const settings = require(__base + 'settings');
-const prettyjson = require('prettyjson');
+const logger = require(__base + 'logger/logger.js');
 
 /**
  * Wrapper for the mendix TeamServerAPI
@@ -20,7 +20,7 @@ class TeamServerAPI {
     retrieveBranches() {
         let path = '/api/1/apps/'+settings.projectName+'/branches/';
         this.https.request(this.host, path, 'GET', (result) => {
-            console.log(prettyjson.render(result, null));
+            logger.printJson(result);
         });
     }
 }

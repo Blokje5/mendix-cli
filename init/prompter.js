@@ -1,6 +1,8 @@
 const prompt = require('prompt');
 const {promisify} = require('util');
 
+const logger = require(__base + 'logger/logger.js');
+
 prompt.message = '';
 prompt.delimeter = '';
 /**
@@ -27,12 +29,12 @@ class Prompter {
      * @return {object}
      */
     async userInput() {
-        console.log('We need some information ' +
+        logger.printOut('We need some information ' +
         'to setup a configuration file');
         await this.prompter.start();
         let result = await this._get(this.schema).then((result) => {
             return result;
-        }).catch((err) => console.log(err));
+        }).catch((err) => logger.error(err));
         return result;
     }
 }
@@ -55,6 +57,10 @@ const schema = {
         },
         branch: {
             default: 'trunk',
+        },
+        logLevel: {
+            default: 'info',
+            required: true,
         },
     },
 };

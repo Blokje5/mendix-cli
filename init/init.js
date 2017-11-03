@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const prompter = require(path.join(__dirname, 'prompter.js'));
+const logger = require(__base + 'logger/logger.js');
 
 // TODO make init depend on prompter
 /**
@@ -8,11 +9,11 @@ const prompter = require(path.join(__dirname, 'prompter.js'));
  */
 async function init() {
     let result = await prompter.userInput()
-                                 .catch((err) => console.log(err));
+                                 .catch((err) => logger.error(err));
 
     let json = JSON.stringify(result, null, 4);
     fs.writeFile('settings.json', json, 'utf8', () => {
-        console.log('succesfull initialization');
+        logger.printOut('succesfull initialization');
     });
 }
 

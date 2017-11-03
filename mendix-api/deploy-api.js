@@ -1,8 +1,6 @@
-const prettyjson = require('prettyjson');
-
 const https = require(__base + 'http/http.js');
 const settings = require(__base + 'settings');
-
+const logger = require(__base + 'logger/logger.js');
 /**
  * Wrapper for the mendix DeployAPI
  */
@@ -22,7 +20,7 @@ class DeployAPI {
     retrieveApps() {
         let path = '/api/1/apps/';
         this.https.request(this.host, path, 'GET', (result) => {
-            console.log(prettyjson.render(result, null));
+            logger.printJson(result);
         });
     }
 
@@ -32,7 +30,7 @@ class DeployAPI {
     retrieveEnvironments() {
         let path = '/api/1/apps/'+settings.projectName+'/environments/';
         this.https.request(this.host, path, 'GET', (result) => {
-             console.log(prettyjson.render(result, null));
+            logger.printJson(result);
          });
     }
 }
