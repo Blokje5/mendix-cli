@@ -1,39 +1,5 @@
 #!/usr/bin/env node
 global.__base = __dirname + '/';
-
-const commander = require('commander');
-const init = require(__base + 'init/init.js');
-
-
-commander
-  .command('init')
-  .description('initializes the configuration file')
-  .action(() => {
-      init();
-    });
-
-commander
-  .command('apps')
-  .description('retrieves all available apps')
-  .action(() => {
-    const deploy = require(__base + 'mendix-api/deploy-api.js');
-    deploy.retrieveApps();
-  });
-
-commander
-  .command('environments')
-  .description('retrieves all available environments')
-  .action(() => {
-    const deploy = require(__base + 'mendix-api/deploy-api.js');
-    deploy.retrieveEnvironments();
-  });
-
-commander
-  .command('branches')
-  .description('retrieves all available branches')
-  .action(() => {
-    const team = require(__base + 'mendix-api/teamserver-api.js');
-    team.retrieveBranches();
-  });
+const commander = require(__base + 'console/console.js');
 
 commander.parse(process.argv);
